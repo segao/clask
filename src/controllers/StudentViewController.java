@@ -12,6 +12,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
@@ -73,29 +74,63 @@ public class StudentViewController {
         return studentViewInstance;
     }
 
+  /**
+     * Creates a new VBox with a 1-pixel, black border.
+     * Used to fill out the rest of a GridPane so that the entire grid has borders.
+     * This is needed since setGridLinesVisible is only for debugging and is cleared when topics are reset.
+     * @return 
+     */
+    private VBox displayEmptyCellWithBorder() {
+        VBox vbox = new VBox();
+        vbox.setStyle("-fx-border-color: black;");
+        return vbox;
+    }
+    
+    /**
+     * Displays all topics in the active course's topics list.
+     * If the number of topics is less than 8, creates empty cells to fill out the rest of the grid.
+     */
     private void displayTopics() {
-        for (Topic topic : activeCourse.getTopicsList()) {
-            if (topic != null) {
-                topic.getTopicButton().setOnAction(e -> chooseTopic(topic));
-                displayTopic(topic);
-                numTopics++;
-            }
+        for (int i = 0; i < activeCourse.getTopicsList().size(); i++) {
+            displayTopic(activeCourse.getTopicsList().get(i), i);
+        }
+        for (int i = activeCourse.getTopicsList().size(); i < 8; i++) {
+            VBox labelBox = displayEmptyCellWithBorder();
+            counterPane.add(labelBox, 0, i);
+            GridPane.setMargin(labelBox, new Insets(-1, -1, 0, -1));
+            VBox counterBox = displayEmptyCellWithBorder();
+            GridPane.setFillWidth(counterBox, true);
+            counterPane.add(counterBox, 1, i);
+            GridPane.setMargin(counterBox, new Insets(-1, -1, 0, 0));
+            VBox buttonBox = displayEmptyCellWithBorder();
+            topicPane.add(buttonBox, 0, i);
+            GridPane.setMargin(buttonBox, new Insets(0, -1, -1, 0));
         }
     }
     
-    private void displayTopic(Topic topic) {
+    /**
+     * Displays associated components showing the information of the given topic.
+     * Adds the label GridPane, counter GridPane, and button to the counterPane and the topicPane.
+     * ___________________________________      ________________________________
+     * |        Understand         |  0  |      |                              |
+     * |      Don't Understand     |  0  |      |          Topic 1 Name        |
+     * -----------------------------------      --------------------------------
+     * @param topic Topic to be displayed
+     * @param rowIndex Row to insert components 
+     */
+    private void displayTopic(Topic topic, int rowIndex) {
+        topic.getTopicButton().setOnAction(e -> chooseTopic(topic));
         GridPane radioGP = createRadioGridPane(topic.getUnderstandRadio(), topic.getDontUnderstandRadio());
         GridPane counterGP = createLabelGridPane(topic.getUnderstandCounterLabel(), topic.getDontUnderstandCounterLabel());
-        counterPane.add(radioGP, 0, numTopics);
-        counterPane.add(counterGP, 1, numTopics);
-        RowConstraints rc = new RowConstraints();
-        rc.setFillHeight(true);
-        ColumnConstraints cc = new ColumnConstraints();
-        cc.setFillWidth(true);
-        topicPane.getRowConstraints().addAll(rc);
-        topicPane.getColumnConstraints().addAll(cc);
-        topicPane.add(topic.getTopicButton(), 0, numTopics);
+        counterPane.add(radioGP, 0, rowIndex);
+        GridPane.setFillWidth(counterGP, true);
+        GridPane.setMargin(radioGP, new Insets(-1, -1, 0, -1));
+        counterPane.add(counterGP, 1, rowIndex);
+        GridPane.setMargin(counterGP, new Insets(-1, -1, 0, 0));
+        topicPane.add(topic.getTopicButton(), 0, rowIndex);
+        GridPane.setMargin(topic.getTopicButton(), new Insets(-1, -1, 0, 0));
     }
+    
     
     private void resetTopicButtons() {
         for (Topic topic : activeCourse.getTopicsList()) {
@@ -136,6 +171,7 @@ public class StudentViewController {
         labelGP.getColumnConstraints().addAll(cc);
         labelGP.add(label1, 0, 0);
         labelGP.add(label2, 0, 1);
+        labelGP.setStyle("-fx-border-color: black;");
         return labelGP;
     }
     
@@ -154,6 +190,7 @@ public class StudentViewController {
         dontUnderstand.setToggleGroup(tg);
         radioGP.add(understand, 0, 0);
         radioGP.add(dontUnderstand, 0, 1);
+        radioGP.setStyle("-fx-border-color: black;");
         return radioGP;
     }
    

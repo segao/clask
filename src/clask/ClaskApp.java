@@ -179,5 +179,9 @@ public class ClaskApp extends Application {
         return activeScene;
     }
     
+    public Rectangle2D getBounds() {
+        return bounds;
+    }
+    
 }
 

@@ -82,7 +82,7 @@
       </VBox>
    </top>
    <left>
-      <GridPane fx:id="counterPane" gridLinesVisible="true" prefHeight="601.0" prefWidth="219.0" BorderPane.alignment="CENTER">
+      <GridPane fx:id="counterPane" prefHeight="601.0" prefWidth="219.0" BorderPane.alignment="CENTER">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" maxWidth="181.0" minWidth="10.0" prefWidth="174.0" />
             <ColumnConstraints fillWidth="false" halignment="CENTER" hgrow="SOMETIMES" maxWidth="85.0" minWidth="14.0" prefWidth="35.0" />
@@ -134,13 +134,10 @@
          <BorderPane.margin>
             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
          </BorderPane.margin>
-         <padding>
-            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-         </padding>
       </GridPane>
    </left>
    <center>
-      <GridPane fx:id="topicPane" gridLinesVisible="true" BorderPane.alignment="CENTER">
+      <GridPane fx:id="topicPane" BorderPane.alignment="CENTER">
         <columnConstraints>
           <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
         </columnConstraints>
@@ -160,13 +157,10 @@
          <effect>
             <ColorAdjust />
          </effect>
-         <padding>
-            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-         </padding>
       </GridPane>
    </center>
    <bottom>
-      <GridPane BorderPane.alignment="CENTER">
+      <GridPane fx:id="bottomGrid" BorderPane.alignment="CENTER">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -187,14 +181,14 @@
          <children>
             <Button mnemonicParsing="false" text="Email" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
             <Button mnemonicParsing="false" text="Contact" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
-            <Button fx:id="submitQ" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#enterQ" prefHeight="31.0" prefWidth="171.0" text="Submit Question" GridPane.columnIndex="8" GridPane.columnSpan="2" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS">
+            <Button fx:id="submitQ" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#enterQ" prefHeight="31.0" prefWidth="171.0" text="Submit Question" GridPane.columnIndex="9" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS">
                <GridPane.margin>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </GridPane.margin>
                <padding>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </padding></Button>
-            <Button fx:id="submitA" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#enterA" prefHeight="31.0" prefWidth="171.0" text="Submit Answer" GridPane.columnIndex="8" GridPane.columnSpan="2" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1">
+            <Button fx:id="submitA" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#enterA" prefHeight="31.0" prefWidth="171.0" text="Submit Answer" GridPane.columnIndex="9" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1">
                <GridPane.margin>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </GridPane.margin>
@@ -204,7 +198,7 @@
             <Button alignment="CENTER_RIGHT" contentDisplay="RIGHT" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" text="Help" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
             <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" text="After Class" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
             <TextArea prefHeight="30.0" prefWidth="138.0" promptText="-notification area-" wrapText="true" GridPane.columnSpan="4" GridPane.rowSpan="2" />
-            <TextArea fx:id="messageTextArea" prefHeight="200.0" prefWidth="200.0" promptText="- enter question or answer here -" wrapText="true" GridPane.columnIndex="5" GridPane.columnSpan="3" GridPane.rowSpan="2" />
+            <TextArea fx:id="messageTextArea" prefHeight="200.0" prefWidth="200.0" promptText="- enter question or answer here -" wrapText="true" GridPane.columnIndex="6" GridPane.columnSpan="3" GridPane.rowSpan="2" />
          </children>
          <BorderPane.margin>
             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />

@@ -51,9 +51,7 @@ public class InstructorViewController {
     @FXML
     private Button renameTopic;
     
-    private Course activeCourse;
-    private int numTopics;
-    private int currentUsedTopic = 0;
+    private final Course activeCourse;
     private Topic selectedTopic = null;
 
     public InstructorViewController() {
@@ -65,7 +63,6 @@ public class InstructorViewController {
     
     @FXML
     private void initialize() {
-        numTopics = activeCourse.getTopicsList().size();
         deleteTopic.setDisable(true);
         renameTopic.setDisable(true);
         resetTopicButtons();
@@ -77,6 +74,15 @@ public class InstructorViewController {
         return instructorViewInstance;
     }
     
+    /**
+     * Creates a new topic with the name provided in the text box.
+     * A topic is created if the user presses 'OK' and there are less than 8 topics already created. 
+     * If the new topic name is the same as an existing topic, the existing topic of that name is 
+     * selected and a duplicate is not created.
+     * @param event Associated with onClick action for button createTopic
+     * @throws IOException
+     * @throws Exception 
+     */
     @FXML
     private void createTopic(ActionEvent event) throws IOException, Exception {
         boolean result = ConfirmationBox.displayNewTopic("Create New Topic", "Enter topic name:");
@@ -99,12 +105,22 @@ public class InstructorViewController {
         }
     }
     
+    /**
+     * Creates a new VBox with a 1-pixel, black border.
+     * Used to fill out the rest of a GridPane so that the entire grid has borders.
+     * This is needed since setGridLinesVisible is only for debugging and is cleared when topics are reset.
+     * @return 
+     */
     private VBox displayEmptyCellWithBorder() {
         VBox vbox = new VBox();
         vbox.setStyle("-fx-border-color: black;");
         return vbox;
     }
     
+    /**
+     * Displays all topics in the active course's topics list.
+     * If the number of topics is less than 8, creates empty cells to fill out the rest of the grid.
+     */
     private void displayTopics() {
         for (int i = 0; i < activeCourse.getTopicsList().size(); i++) {
             displayTopic(activeCourse.getTopicsList().get(i), i);
@@ -112,26 +128,36 @@ public class InstructorViewController {
         for (int i = activeCourse.getTopicsList().size(); i < 8; i++) {
             VBox labelBox = displayEmptyCellWithBorder();
             counterPane.add(labelBox, 0, i);
-            counterPane.setMargin(labelBox, new Insets(-1, -1, 0, -1));
+            GridPane.setMargin(labelBox, new Insets(-1, -1, 0, -1));
             VBox counterBox = displayEmptyCellWithBorder();
             counterPane.add(counterBox, 1, i);
-            counterPane.setMargin(counterBox, new Insets(-1, -1, 0, 0));
+            GridPane.setMargin(counterBox, new Insets(-1, -1, 0, 0));
             VBox buttonBox = displayEmptyCellWithBorder();
             topicPane.add(buttonBox, 0, i);
-            topicPane.setMargin(buttonBox, new Insets(0, -1, -1, 0));
+            GridPane.setMargin(buttonBox, new Insets(0, -1, -1, 0));
         }
     }
     
+    /**
+     * Displays associated components showing the information of the given topic.
+     * Adds the label GridPane, counter GridPane, and button to the counterPane and the topicPane.
+     * ___________________________________      ________________________________
+     * |        Understand         |  0  |      |                              |
+     * |      Don't Understand     |  0  |      |          Topic 1 Name        |
+     * -----------------------------------      --------------------------------
+     * @param topic Topic to be displayed
+     * @param rowIndex Row to insert components 
+     */
     private void displayTopic(Topic topic, int rowIndex) {
         topic.getTopicButton().setOnAction(e -> chooseTopic(topic));
         GridPane labelGP = createLabelGridPane(topic.getUnderstandLabel(), topic.getDontUnderstandLabel());
         GridPane counterGP = createLabelGridPane(topic.getUnderstandCounterLabel(), topic.getDontUnderstandCounterLabel());
         counterPane.add(labelGP, 0, rowIndex);
-        counterPane.setMargin(labelGP, new Insets(-1, -1, 0, -1));
+        GridPane.setMargin(labelGP, new Insets(-1, -1, 0, -1));
         counterPane.add(counterGP, 1, rowIndex);
-        counterPane.setMargin(counterGP, new Insets(-1, -1, 0, 0));
+        GridPane.setMargin(counterGP, new Insets(-1, -1, 0, 0));
         topicPane.add(topic.getTopicButton(), 0, rowIndex);
-        topicPane.setMargin(topic.getTopicButton(), new Insets(-1, -1, 0, 0));
+        GridPane.setMargin(topic.getTopicButton(), new Insets(-1, -1, 0, 0));
     }
     
     private void resetTopicButtons() {
@@ -140,6 +166,14 @@ public class InstructorViewController {
         }
     }
     
+    /***
+     * Creates a two row GridPane to be added to the left counterPane GridPane.
+     * Called twice per row, one to display "Don't Understand" and "Understand" labels and the other 
+     * to show the student counters.
+     * @param label1 Label to be put in the first row
+     * @param label2 Label to be put in the second row
+     * @return 
+     */
     private GridPane createLabelGridPane(Label label1, Label label2) {
         GridPane labelGP = new GridPane();
         RowConstraints rc = new RowConstraints();
@@ -154,6 +188,13 @@ public class InstructorViewController {
         return labelGP;
     }
     
+    /**
+     * Selects a topic. Occurs on onClick action for a topic's button.
+     * Deselects an already selected topic if it exists.
+     * Sets the background of the topic to select to blue.
+     * Enables the renameTopic and deleteTopic buttons applied to the newly selected topic.
+     * @param topic Topic to select
+     */
     @FXML
     public void chooseTopic(Topic topic) {
         if (selectedTopic != null && selectedTopic.isUsed()) {
@@ -170,6 +211,12 @@ public class InstructorViewController {
         displayTopicMessages();
     }
     
+    /**
+     * Deletes a topic.
+     * Called through onClick action on button deleteTopic.
+     * Refreshes the topic list display.
+     * @param topic Selected Topic
+     */
     @FXML
     public void deleteTopic(Topic topic) {
         Alert alert = new Alert(AlertType.CONFIRMATION);
@@ -190,6 +237,11 @@ public class InstructorViewController {
         }
     }
     
+    /**
+     * Renames a topic.
+     * Called through onClick action on button renameTopic.
+     * @param topic Topic to select.
+     */
     @FXML
     public void renameTopic(Topic topic) {
         boolean result = ConfirmationBox.displayNewTopic("Rename Topic", "Enter a new name for Topic " + topic.getTopicName() + ":");
