@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.CreateAccountController">
+   <children>
+      <GridPane prefHeight="779.0" prefWidth="1207.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="223.0" minWidth="10.0" prefWidth="164.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="282.0" minWidth="10.0" prefWidth="226.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="343.0" minWidth="10.0" prefWidth="192.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="369.0" minWidth="10.0" prefWidth="213.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="312.0" minWidth="10.0" prefWidth="207.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="312.0" minWidth="10.0" prefWidth="179.0" />
+        </columnConstraints>
+        <rowConstraints>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="65.0" minHeight="10.0" prefHeight="45.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="165.0" minHeight="10.0" prefHeight="140.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <TextField fx:id="createFirstName" alignment="CENTER" promptText="-first name-" GridPane.columnIndex="3" GridPane.rowIndex="3">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </TextField>
+            <TextField fx:id="createLastName" alignment="CENTER" promptText="-last name-" GridPane.columnIndex="3" GridPane.rowIndex="4">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </TextField>
+            <TextField fx:id="createUsername" alignment="CENTER" promptText="-username-" GridPane.columnIndex="3" GridPane.rowIndex="5">
+               <font>
+                  <Font size="18.0" />
+               </font></TextField>
+            <ComboBox fx:id="createTypeComboBox" prefHeight="31.0" prefWidth="214.0" promptText="      -select user type-" GridPane.columnIndex="3" GridPane.rowIndex="6" />
+            <PasswordField fx:id="createPswd" alignment="CENTER" promptText="-password-" GridPane.columnIndex="3" GridPane.rowIndex="7">
+               <font>
+                  <Font size="18.0" />
+               </font></PasswordField>
+            <PasswordField fx:id="createConfirmPswd" alignment="CENTER" promptText="-confirm password-" GridPane.columnIndex="3" GridPane.rowIndex="8">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </PasswordField>
+            <Label text="Confirm Password" GridPane.columnIndex="2" GridPane.rowIndex="8">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label text="Username:" GridPane.columnIndex="2" GridPane.rowIndex="5">
+               <font>
+                  <Font size="18.0" />
+               </font></Label>
+            <Label text="Password:" GridPane.columnIndex="2" GridPane.rowIndex="7">
+               <font>
+                  <Font size="18.0" />
+               </font></Label>
+            <Button fx:id="createUserCancel" mnemonicParsing="false" onAction="#handleCreateCancelButtonAction" text="Cancel" GridPane.columnIndex="2" GridPane.rowIndex="9">
+               <font>
+                  <Font size="18.0" />
+               </font></Button>
+            <Button fx:id="createUser" mnemonicParsing="false" onAction="#createUser" text="Create User" GridPane.columnIndex="3" GridPane.halignment="RIGHT" GridPane.rowIndex="9" GridPane.valignment="CENTER">
+               <font>
+                  <Font size="18.0" />
+               </font></Button>
+            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="100.0" prefWidth="1200.0" text="Enter information required below to create a new account." textAlignment="CENTER" GridPane.columnSpan="6" GridPane.halignment="CENTER">
+               <font>
+                  <Font size="28.0" />
+               </font>
+            </Label>
+            <Label fx:id="errorCreateUser" alignment="CENTER" textFill="RED" GridPane.columnIndex="4" GridPane.columnSpan="2" GridPane.rowIndex="5" />
+            <Label fx:id="errorCreatePass" alignment="CENTER" textFill="RED" GridPane.columnIndex="4" GridPane.columnSpan="2" GridPane.rowIndex="7" />
+            <Label text="First Name:" GridPane.columnIndex="2" GridPane.rowIndex="3">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label text="Last Name:" GridPane.columnIndex="2" GridPane.rowIndex="4">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label text="User Type" GridPane.columnIndex="2" GridPane.rowIndex="6">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label fx:id="errorCreateFirst" textFill="#f20707" GridPane.columnIndex="4" GridPane.columnSpan="2" GridPane.rowIndex="3" />
+            <Label fx:id="errorCreateLast" textFill="#f20404" GridPane.columnIndex="4" GridPane.columnSpan="2" GridPane.rowIndex="4" />
+            <Label fx:id="errorConfirmPass" textFill="#fc0606" GridPane.columnIndex="4" GridPane.columnSpan="2" GridPane.rowIndex="8" />
+         </children>
+      </GridPane>
+   </children>
+</VBox>
